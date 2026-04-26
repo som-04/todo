@@ -9,9 +9,14 @@ import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT || 5001;
 const app = express();
+const allowedOrigin = process.env.CLIENT_URL;
 
 // middleware
-app.use(cors());
+app.use(
+    cors({
+        origin: allowedOrigin || true,
+    }),
+);
 app.use(express.json());
 app.use(rateLimiter);
 app.use("/api/auth", authRoutes);
